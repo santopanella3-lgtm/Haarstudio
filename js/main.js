@@ -146,9 +146,11 @@
 
     function gShow(n) {
       gIdx = (n % gCount + gCount) % gCount;
-      gTrack.style.transform = "translateX(-" + gIdx * 100 + "%)";
       gDots.forEach(function (d, i) { d.classList.toggle("is-active", i === gIdx); });
-      gSlides.forEach(function (s, i) { s.setAttribute("aria-hidden", i === gIdx ? "false" : "true"); });
+      gSlides.forEach(function (s, i) {
+        s.classList.toggle("is-active", i === gIdx);
+        s.setAttribute("aria-hidden", i === gIdx ? "false" : "true");
+      });
       if (gCurrent) { gCurrent.textContent = gIdx + 1; }
     }
 
