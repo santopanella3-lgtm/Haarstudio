@@ -212,6 +212,21 @@
     });
   }
 
+  /* ---- Karte erst nach Klick laden (DSGVO) ---- */
+  document.querySelectorAll("[data-map-consent]").forEach(function (box) {
+    var btn = box.querySelector("[data-map-load]");
+    if (!btn) { return; }
+    btn.addEventListener("click", function () {
+      var frame = document.createElement("iframe");
+      frame.className = "map-embed";
+      frame.title = box.getAttribute("data-map-title") || "Karte";
+      frame.loading = "lazy";
+      frame.referrerPolicy = "no-referrer";
+      frame.src = box.getAttribute("data-map-src");
+      box.replaceWith(frame);
+    });
+  });
+
   /* ---- Aktuelles Jahr im Footer ---- */
   var yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = new Date().getFullYear();

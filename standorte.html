@@ -6,9 +6,6 @@
 <title>Standort &amp; Anfahrt – Haarstudio Galerie da Lucia | Augsburg</title>
 <meta name="description" content="Standort von Haarstudio Galerie da Lucia in Augsburg: im Antoniushof, Dominikanergasse 4, nahe der Maximilianstraße. Öffnungszeiten Mo–Fr 09:00–18:30, Sa 09:00–16:00 Uhr. Anfahrt und Karte auf der Seite.">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -48,12 +45,15 @@
 
         <!-- ANTONIUSHOF -->
         <article class="location-card reveal">
-          <iframe
-            class="map-embed"
-            title="Karte: Haarstudio Galerie da Lucia, Dominikanergasse 4, 86150 Augsburg"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=10.89532%2C48.36380%2C10.90432%2C48.36800&layer=mapnik&marker=48.36590%2C10.89982"></iframe>
+          <div class="map-consent" data-map-consent
+               data-map-src="https://www.openstreetmap.org/export/embed.html?bbox=10.89532%2C48.36380%2C10.90432%2C48.36800&amp;layer=mapnik&amp;marker=48.36590%2C10.89982"
+               data-map-title="Karte: Haarstudio Galerie da Lucia, Dominikanergasse 4, 86150 Augsburg">
+            <div class="map-consent__inner">
+              <p class="map-consent__title">Karte von OpenStreetMap</p>
+              <p class="map-consent__text">Beim Laden der Karte wird deine IP-Adresse an die OpenStreetMap Foundation übertragen. Mehr dazu in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+              <button type="button" class="btn btn--sm" data-map-load>Karte laden</button>
+            </div>
+          </div>
           <div class="location-card__body">
             <span class="location-card__tag">Antoniushof</span>
             <h2>Antoniushof</h2>
@@ -120,6 +120,7 @@
         <ul>
           <li><strong>Antoniushof</strong><br>Dominikanergasse 4<br>86150 Augsburg</li>
           <li style="margin-top:.7rem"><a href="tel:+4982171049889">0821 71049889</a></li>
+          <li style="margin-top:.35rem"><a href="mailto:lucia.suma@icloud.com">lucia.suma@icloud.com</a></li>
         </ul>
       </div>
       <div>
@@ -129,6 +130,7 @@
           <li>Sa: 09:00 – 16:00 Uhr</li>
           <li>Sonntag: geschlossen</li>
           <li style="margin-top:.6rem"><a href="tel:+4982171049889">Termin? Ruf uns an →</a></li>
+          <li class="footer-note" style="margin-top:.6rem">Termine werden <strong>ausschließlich telefonisch</strong> vereinbart – nicht per E-Mail.</li>
         </ul>
       </div>
     </div>

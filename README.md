@@ -97,8 +97,10 @@ sind entsprechend allgemein gehalten).
   Salon-Preisliste, Sept. 2026) als `.price-table`-Tabellen: Damen, Haarfarbe,
   Herren, Kinder, Augen. Bei Preisänderungen einfach die `<td>`-Werte anpassen.
 - Team-Namen und -Rollen in `ueber-uns.html` ergänzen/prüfen.
-- E-Mail-Adresse `hallo@galerie-da-lucia.de` ist **Platzhalter** – überall
-  ersetzen: `kontakt.html`, `impressum.html`, `datenschutz.html`.
+- E-Mail-Adresse: `lucia.suma@icloud.com` – eingetragen in `kontakt.html`,
+  `impressum.html`, `datenschutz.html`, im Footer aller Seiten und im JSON-LD
+  von `index.html`. Überall mit dem Hinweis, dass Termine **ausschließlich
+  telefonisch** vereinbart werden.
 - Facebook-Link prüfen: in `galerie.html` (Social-Media-Band) ist aktuell
   `facebook.com/p/haarstudio_galerie_da_lucia-100063655596286/` hinterlegt –
   gegen die echte Seiten-URL abgleichen und ggf. ersetzen.
@@ -111,7 +113,12 @@ Die OpenStreetMap-Karte in `standorte.html` ist auf die echte Adresse gesetzt
 
 - Marker: `48.36590, 10.89982`
 
-Diese Koordinaten stehen an drei Stellen in `standorte.html`: im `iframe`-`src`
+Die Karte wird aus Datenschutzgründen **erst nach einem Klick** geladen
+(Zwei-Klick-Lösung): Der Platzhalter `.map-consent` trägt die Karten-URL in
+`data-map-src`; `js/main.js` erzeugt das `<iframe>` erst beim Klick auf
+„Karte laden". Vorher geht keine Anfrage an OpenStreetMap.
+
+Die Koordinaten stehen an zwei Stellen in `standorte.html`: in `data-map-src`
 (`marker=` und `bbox=`) und im „Größere Karte"-Link (`mlat`/`mlon` sowie im
 `#map=`-Fragment). Der „Route mit Google Maps"-Link nutzt die Namens-/Adresssuche
 und öffnet direkt den Google-Eintrag des Salons.
@@ -134,16 +141,32 @@ Falls doch einmal ein Buchungs-Widget gewünscht ist (z. B. **Fresha** oder
    ausfüllen. Bei Script-Einbettung ggf. Cookie-Consent-Banner nötig.
 
 ### Impressum & Datenschutz
-Beides sind **Vorlagen**. Alle `[ … ]`-Platzhalter ausfüllen (Geschäftsanschrift
-laut Gewerbeanmeldung, Rechtsform, ggf. USt-IdNr., E-Mail, Stand-Datum) und vor
-dem Live-Gang rechtlich prüfen lassen (z. B. mit einem aktuellen Generator von
-e-recht24 / Dr. Schwenke). Zuständige Kammer: **Handwerkskammer für Schwaben**.
+Noch **offen vor dem Livegang**:
 
-### Datenschutzfreundlicher: Schriften lokal einbinden
-Aktuell werden Google Fonts (Cormorant Garamond, Inter) per CDN geladen.
-Für DSGVO-Konformität ohne Consent die Schriften herunterladen, nach
-`assets/fonts/` legen und in `css/style.css` per `@font-face` einbinden;
-die `<link>`-Zeilen zu `fonts.googleapis.com` in allen HTML-Dateien entfernen.
+1. `datenschutz.html` Abschnitt 2 – `[Hosting-Anbieter, Anschrift]` eintragen
+   und AV-Vertrag (Art. 28 DSGVO) mit dem Hoster abschließen.
+2. `impressum.html` – `[ggf. Rechtsform]` und `[DE… — falls vorhanden]`
+   (USt-IdNr.) klären. Ohne USt-IdNr. den ganzen Abschnitt löschen.
+3. Einwilligungen der auf den Fotos abgebildeten Personen schriftlich einholen
+   (siehe `datenschutz.html` Abschnitt 6).
+
+Zuständige Kammer: **Handwerkskammer für Schwaben**. Vor dem Live-Gang
+rechtlich prüfen lassen (z. B. Generator von e-recht24 / Dr. Schwenke).
+
+### Schriften (lokal eingebunden)
+Cormorant Garamond und Inter liegen als `.woff2` in `assets/fonts/` und werden
+in `css/style.css` per `@font-face` eingebunden (Subsets `latin` + `latin-ext`).
+Es gibt **keine Verbindung zu Google-Servern** – die `<link>`-Zeilen zu
+`fonts.googleapis.com` wurden aus allen HTML-Dateien entfernt.
+
+### Security-Header
+- `_headers` – für **Netlify**
+- `.htaccess` – für **Apache**-Hoster (IONOS, Strato, All-Inkl …)
+
+Beide setzen CSP, HSTS, `X-Content-Type-Options`, `X-Frame-Options`,
+`Referrer-Policy` und `Permissions-Policy`. Die CSP erlaubt als einzige
+Fremdquelle `frame-src https://www.openstreetmap.org` (für die Karte nach Klick).
+Wird später ein Drittanbieter-Script ergänzt, muss die CSP angepasst werden.
 
 ## Lokal ansehen
 
