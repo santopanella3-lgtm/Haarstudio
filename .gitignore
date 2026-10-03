@@ -1,3 +1,6 @@
 .DS_Store
 .auto-sync.log
 .auto-sync.sh
+
+# Local Netlify folder
+.netlify

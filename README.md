@@ -178,10 +178,62 @@ python3 -m http.server 8000
 # http://localhost:8000
 ```
 
-## Deploy
+## Live-Betrieb & Deployment
 
-Reine statische Dateien – funktioniert auf jedem Webspace, bei Netlify,
-Vercel, GitHub Pages, Cloudflare Pages usw. Einfach den Ordnerinhalt hochladen.
+**Die Website ist live unter https://www.galerie-da-lucia.de**
+
+| | |
+|---|---|
+| Hosting | Netlify, Projekt `timely-gecko-6c85cc` (Team SF) |
+| Repository | github.com/santopanella3-lgtm/Haarstudio, Branch `main` |
+| Domain | `galerie-da-lucia.de`, registriert bei INWX |
+| Inhaberin der Domain | Lucia Suma (muss mit dem Impressum übereinstimmen) |
+| HTTPS | Let's Encrypt, von Netlify automatisch verlängert |
+
+### Änderungen veröffentlichen
+
+Jeder Push auf `main` löst automatisch ein Deployment aus – nach rund
+30 Sekunden ist die Änderung live. Kein Build-Schritt, keine weiteren Klicks.
+
+```bash
+git add -A
+git commit -m "Was geändert wurde"
+git push
+```
+
+### DNS-Einträge bei INWX
+
+Nicht verändern, ausser das Hosting wechselt:
+
+```
+(leer)   A       75.2.60.5                          -> Netlify Apex-Loadbalancer
+www      CNAME   timely-gecko-6c85cc.netlify.app    -> kanonische Adresse
+```
+
+`netlify.toml` leitet `galerie-da-lucia.de` per 301 auf `www.` um; `www` ist
+die kanonische Adresse (so auch in `sitemap.xml` und `robots.txt`).
+
+### ⚠️ Beim Ändern der Structured Data beachten
+
+Die CSP in `_headers` und `.htaccess` enthält einen **SHA-256-Hash** des
+JSON-LD-Blocks aus `index.html`. Wird dieser Block geändert (Öffnungszeiten,
+Adresse, Telefon), muss der Hash neu berechnet und an beiden Stellen
+eingetragen werden – sonst blockiert der Browser die strukturierten Daten:
+
+```bash
+python3 -c "
+import re,hashlib,base64
+s=open('index.html',encoding='utf-8').read()
+b=re.search(r'<script type=\"application/ld\+json\">(.*?)</script>',s,re.S).group(1)
+print('sha256-'+base64.b64encode(hashlib.sha256(b.encode()).digest()).decode())"
+```
+
+### Lokal testen ohne Cache-Probleme
+
+```bash
+python3 -m http.server 8777
+# http://localhost:8777
+```
 
 ## Technik
 
@@ -189,6 +241,7 @@ Vercel, GitHub Pages, Cloudflare Pages usw. Einfach den Ordnerinhalt hochladen.
   responsiv, `prefers-reduced-motion`), ein `main.js` (Mobile-Nav, Header beim
   Runterscrollen aus-/beim Hochscrollen einblenden, Scroll-Reveal, Lightbox,
   „heute"-Markierung in den Öffnungszeiten-Tabellen).
-- Kein Build-Schritt, keine Abhängigkeiten außer den Google-Fonts.
+- Kein Build-Schritt, keine externen Abhängigkeiten. Schriften liegen
+  lokal in `assets/fonts/` (siehe Abschnitt „Schriften").
 - `HairSalon`-Structured-Data auf der Startseite (Name, Adresse,
   Öffnungszeiten, Inhaberin, Instagram).
