@@ -1,0 +1,61 @@
+# Netlify-Konfiguration – Haarstudio Galerie da Lucia
+# Statische Website ohne Build-Schritt: der Projektordner wird direkt ausgeliefert.
+# Die Security-Header stehen in der Datei _headers.
+
+[build]
+  publish = "."
+  command = ""
+
+# ---------- Kanonische Domain: alles auf www umleiten ----------
+# (sitemap.xml und robots.txt verweisen auf www.galerie-da-lucia.de)
+[[redirects]]
+  from = "https://galerie-da-lucia.de/*"
+  to = "https://www.galerie-da-lucia.de/:splat"
+  status = 301
+  force = true
+
+# ---------- Saubere URLs ohne .html ----------
+[[redirects]]
+  from = "/leistungen"
+  to = "/leistungen.html"
+  status = 200
+[[redirects]]
+  from = "/ueber-uns"
+  to = "/ueber-uns.html"
+  status = 200
+[[redirects]]
+  from = "/galerie"
+  to = "/galerie.html"
+  status = 200
+[[redirects]]
+  from = "/standort"
+  to = "/standorte.html"
+  status = 200
+[[redirects]]
+  from = "/kontakt"
+  to = "/kontakt.html"
+  status = 200
+[[redirects]]
+  from = "/team"
+  to = "/team.html"
+  status = 200
+[[redirects]]
+  from = "/impressum"
+  to = "/impressum.html"
+  status = 200
+[[redirects]]
+  from = "/datenschutz"
+  to = "/datenschutz.html"
+  status = 200
+
+# ---------- Dateien, die nicht ausgeliefert werden sollen ----------
+[[redirects]]
+  from = "/.htaccess"
+  to = "/404.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/README.md"
+  to = "/404.html"
+  status = 404
+  force = true
